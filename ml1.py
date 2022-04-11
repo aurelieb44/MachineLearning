@@ -49,16 +49,19 @@ print(target_test.shape)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier()
 knn.fit(X=data_train, y=target_train) # x upper case is the sample and y lower case is the target
-# fit is the method that is doing all the machine learning, needs the data and the target to know what that data represents
+# fit is the method that is doing ALL THE MACHINE MEARNING needs the data and the target to know what that data represents
 # each row has a target, it's going to look at those numbers and look for the target value 
 # as long as you tell it what the target is, it's going to learn.
 # tell it what the target is so it can learn
+# input = all the samples with all the features, the mroe features/samples you have, the better it's going to predict
+# y = the target value
 
 predicted = knn.predict(X=data_test) # give some unlabeled data and see if it can guess what that number is 
 # no y because it's supposed to spit out the answer
 expected = target_test
 # how do we know if the answer is correct or not? We compare it to what it's supposed to be, the target_test
 # expected and # predicted should match up
+# it's going to produce the results/LIST that it thinks it's supposed to be
 
 print(predicted[:20])
 print(expected[:20])
