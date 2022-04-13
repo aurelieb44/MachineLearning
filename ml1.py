@@ -41,6 +41,9 @@ plt.tight_layout()
 
 from sklearn.model_selection import train_test_split
 data_train, data_test, target_train, target_test = train_test_split(digits.data,digits.target, random_state=11)
+print('lol')
+print(data_train)
+print(data_test)
 print(data_train.shape) # 75% # 2D
 print(data_test.shape)
 print(target_train.shape) # 1D

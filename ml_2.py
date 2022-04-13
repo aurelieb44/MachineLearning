@@ -21,6 +21,9 @@ X_train, X_test, y_train, y_test = train_test_split(nyc.Date.values.reshape(-1,1
 # first argument: the data/sample
 # second argument
 # random_state = if we don't do it, it may be split differently for different people
+print('lovr')
+print(X_train)
+print(X_test)
 print(X_train.shape)
 print(X_test.shape)
 

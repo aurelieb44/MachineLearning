@@ -41,6 +41,7 @@ print(result)
 numbers = (1,2,3,4)
 numbers2 = (5,6,7,8)
 result = list(map(lambda x,y: x+y, numbers, numbers2))
+print('uu')
 print(result)
 
 # Example on Zip
