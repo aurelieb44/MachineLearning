@@ -10,11 +10,21 @@ from sklearn.datasets import load_iris
 iris = load_iris()
 
 # display the shape of the data, target and target_names
+print('\n')
 print(iris.data.shape)
 print(iris.target.shape)
 print(iris.target_names)
+print('\n')
 
 # display the first 10 predicted and expected results using the species names not the number (using target_names)
+# dictionary # dataframe
+
+import pandas as pd
+iris_df = pd.DataFrame(iris.target_names)
+iris_df.reset_index(inplace=True)
+iris_df.columns = ['Specie_Number','Specie_Name']
+#print(iris_df)
+print('\n')
 
 from sklearn.model_selection import train_test_split
 data_train, data_test, target_train, target_test = train_test_split(iris.data,iris.target, random_state=11)
@@ -24,18 +34,37 @@ knn = KNeighborsClassifier()
 knn.fit(X=data_train, y=target_train) 
 
 predicted = knn.predict(X=data_test) 
-expected = target_test
+predicted_df = pd.DataFrame(predicted)
+predicted_df.columns = ['Specie_Number']
+predicted_df = predicted_df.merge(iris_df,on='Specie_Number',how='left')
+predicted_df = predicted_df.iloc[:,1] # remove specie_number column
 
-print(predicted[:10])
-print(expected[:10])
+expected = target_test
+expected_df = pd.DataFrame(expected)
+expected_df.columns = ['Specie_Number']
+expected_df = expected_df.merge(iris_df,on='Specie_Number',how='left')
+expected_df = expected_df.iloc[:,1] # remove specie_number column
+
+print('First 10 Predicted Results:')
+print('\n')
+print(predicted_df[:10])
+print('\n')
+print('First 10 Expected Results:')
+print('\n')
+print(expected_df[:10])
+print('\n')
 
 # display the values that the model got wrong
-wrong = [(p,e) for (p,e) in zip(predicted,expected) if p != e] # iterating through both lists at the same time
+wrong = [(p,e) for (p,e) in zip(predicted_df,expected_df) if p != e] # iterating through both lists at the same time
+print('Values the Model Got Wrong:')
 print(wrong)
+print('\n')
 
 # visualize the data using the confusion matrix
 from sklearn.metrics import confusion_matrix
-confusion = confusion_matrix(y_true=expected, y_pred=predicted) 
+confusion = confusion_matrix(y_true=expected_df, y_pred=predicted_df) 
+print('Confusion Matrix:')
+print('\n')
 print(confusion) 
 
 # HEATMAP

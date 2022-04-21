@@ -18,18 +18,22 @@ import pandas as pd
 data_test_og = pd.read_csv('animals_test.csv')
 data_test = data_test_og.iloc[:,1:] # remove animal name/first column
 #data_test = data_test_og.loc[:,['animal_name']]
-print(data_test)
+print('\n')
+print(data_test[:10])
 data_train_og = pd.read_csv('animals_train.csv')
 data_train = data_train_og.iloc[:,:16] # remove class number/last column
-print(data_train)
+print('\n')
+print(data_train[:10])
 
 #target_train = data_train_og[['class_number']]
 target_train = data_train_og.iloc[:,16] # only keep class number/last column
 #target_train = data_train_og.loc[:,['class_number']]
-print(target_train)
+print('\n')
+print(target_train[:10])
 
 animals = pd.read_csv('animal_classes.csv')
 animals = animals.loc[:,['Class_Number','Class_Type']] # only keep class number and class type / find matches
+print('\n')
 print(animals)
 
 # MACHINE LEARNING
@@ -41,6 +45,7 @@ knn.fit(X=data_train, y=target_train)
 # PREDICTIONS
 
 predicted = knn.predict(X=data_test)
+print('\n')
 print(predicted)
 
 # DATA FRAME
@@ -48,11 +53,12 @@ print(predicted)
 predicted_df = pd.DataFrame(predicted)
 predicted_df.columns = ['Class_Number'] # dataframe with class number/prediction
 
-predicted_df = pd.merge(predicted_df,data_test_og['animal_name'],left_index=True, right_index=True) # add animal name
-predicted_df = predicted_df.merge(animals,on='Class_Number',how='left') # add class type 
+predicted_df = pd.merge(predicted_df,data_test_og['animal_name'],left_index=True, right_index=True) # add animal_name column
+predicted_df = predicted_df.merge(animals,on='Class_Number',how='left') # add class_type column based on class
 
-predicted_df = predicted_df.iloc[:,1:] # remove class number
+predicted_df = predicted_df.iloc[:,1:] # remove class_number
 predicted_df.columns = ['animal_name','prediction'] # rename columns
+print('\n')
 print(predicted_df)
 
 # CSV FILE
